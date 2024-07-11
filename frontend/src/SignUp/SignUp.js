@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import bcrypt from 'bcryptjs';
 import './SignUp.css';
 
 import user_icon from '../Assets/person.png';
@@ -13,7 +12,7 @@ export default function SignUp() {
   const [email, setEmail] = useState('');
   const [role, setRole] = useState('Student');
   const [pass, setPass] = useState('');
-  
+
   const showSignUp = () => {
     setIsSignUp(true);
   };
@@ -35,28 +34,24 @@ export default function SignUp() {
         role: role,
         pass: pass
       };
-      const response = await axios.post('http://localhost:8000/users', newUser);
-      console.log(response);
+      const response = await axios.post('http://localhost:8000/api/users', newUser);
+      console.log('User created:', response.data);
+      // Optionally, you can redirect or show a success message
     } catch (error) {
-      console.log(error);
+      console.error('Error creating user:', error);
+      // Handle error: Display an alert or set an error state
     }
-    console.log('Submitted');
   };
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.get(`http://localhost:8000/users/${email}`);
-      console.log(response.data);
-      if (response.data) {
-        console.log('Login successful');
-        // Redirect or handle successful login
-      } else {
-        console.log('Invalid password');
-        // Handle invalid password
-      }
+      const response = await axios.get(`http://localhost:8000/api/users/${email}`);
+      console.log('User found:', response.data);
+      // Validate password or redirect to dashboard on success
     } catch (error) {
-      alert('Invalid Creds');
+      console.error('Error logging in:', error);
+      // Handle error: Display an alert or set an error state
     }
   };
 
@@ -65,7 +60,7 @@ export default function SignUp() {
       <div className='header'>
         <div className='text'>
           <span className={isSignUp ? 'active' : 'inactive'} onClick={showSignUp}>
-            Sign Up    
+            Sign Up
           </span>
           <span className='active'>&nbsp;</span>
           <span className={!isSignUp ? 'active' : 'inactive'} onClick={showLogin}>
@@ -77,8 +72,8 @@ export default function SignUp() {
       {isSignUp ? (
         <form className='inputs' onSubmit={handleSignUp}>
           <div>
-            <button className="btn btn-dark s20 header" type='button' onClick={toggleRole}>
-              {role} 
+            <button className="btn btn-dark header" type='button' onClick={toggleRole}>
+              {role}
             </button>
             <span className='s20 header'>(Click to change)</span>
           </div>
@@ -144,7 +139,7 @@ export default function SignUp() {
             />
           </div>
           <div className='forgot-password'>
-            Forgot Password? <span>Cant Change</span>
+            Forgot Password? <span>Can't Change</span>
           </div>
           <button type='submit' className="btn btn-dark">
             Login
