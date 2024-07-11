@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './SignUp.css';
-
+import {useNavigate} from 'react-router-dom'
 import user_icon from '../Assets/person.png';
 import email_icon from '../Assets/email.png';
 import password_icon from '../Assets/password.png';
@@ -13,6 +13,8 @@ export default function SignUp({
   const [email, setEmail] = useState('');
   const [role, setRole] = useState('Student');
   const [pass, setPass] = useState('');
+
+const navigate = useNavigate();
 
   const showSignUp = () => {
     setIsSignUp(true);
@@ -38,11 +40,13 @@ export default function SignUp({
       const response = await axios.post('http://localhost:8000/api/users', newUser);
       console.log('User created:', response.data);
       onLogin();
+      navigate('/dashboard');
       // Optionally, you can redirect or show a success message
     } catch (error) {
       console.error('Error creating user:', error);
       // Handle error: Display an alert or set an error state
     }
+    console.log('Submitted');
   };
 
   const handleLogin = async (e) => {
@@ -54,6 +58,7 @@ export default function SignUp({
       if(response.data){
         console.log('Login successful');
         onLogin();
+        navigate('/dashboard');
         //Redirect or handle successful login
       }else{
         console.log('Invalid password');
