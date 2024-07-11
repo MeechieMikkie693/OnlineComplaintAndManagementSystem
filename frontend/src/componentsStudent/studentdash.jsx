@@ -5,6 +5,7 @@ import { Navbar, Nav, Container, Tab, Row, Col } from 'react-bootstrap';
 import SubmitComplaint from './SubmitComplaint';
 import MyComplaints from './MyComplaints';
 import SearchComplaints from './SearchComplaints';
+import Profile from './Profile'
 
 const Studentdash = () => {
   const [complaints, setComplaints] = useState([]);
@@ -21,6 +22,7 @@ const Studentdash = () => {
           <Nav.Link href="#submit">Submit Complaint</Nav.Link>
           <Nav.Link href="#my">My Complaints</Nav.Link>
           <Nav.Link href="#search">Search Complaints</Nav.Link>
+          <Nav.Link href="#profile">Your Profile</Nav.Link>
         </Nav>
       </Navbar>
 
@@ -37,6 +39,9 @@ const Studentdash = () => {
               <Nav.Item>
                 <Nav.Link eventKey="#search">Search Complaints</Nav.Link>
               </Nav.Item>
+              <Nav.Item>
+                <Nav.Link eventKey="#profile">Your Profile</Nav.Link>
+              </Nav.Item>
             </Nav>
           </Col>
           <Col sm={9}>
@@ -49,6 +54,9 @@ const Studentdash = () => {
               </Tab.Pane>
               <Tab.Pane eventKey="#search">
                 <SearchComplaints complaints={complaints} />
+              </Tab.Pane>
+              <Tab.Pane eventKey="#profile">
+                <Profile />
               </Tab.Pane>
             </Tab.Content>
           </Col>

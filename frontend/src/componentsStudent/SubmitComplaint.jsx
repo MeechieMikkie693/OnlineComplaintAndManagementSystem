@@ -1,17 +1,23 @@
 import React, { useState } from 'react';
-import { Card } from 'react-bootstrap';
+import { Card, Button, Form, Alert } from 'react-bootstrap';
 
 const SubmitComplaint = ({ addComplaint }) => {
   const [newComplaint, setNewComplaint] = useState('');
   const [category, setCategory] = useState('');
+  const [submitSuccess, setSubmitSuccess] = useState(false);
 
   const handleNewComplaintChange = (e) => setNewComplaint(e.target.value);
   const handleCategoryChange = (e) => setCategory(e.target.value);
 
   const handleSubmitComplaint = (e) => {
     e.preventDefault();
-    const newEntry = { complaint: newComplaint, category };
+    const newEntry = { complaint: newComplaint, category: category };
     addComplaint(newEntry);
+
+    // Set the submit success flag
+    setSubmitSuccess(true);
+
+    // Reset the form after submission
     setNewComplaint('');
     setCategory('');
   };
@@ -20,6 +26,7 @@ const SubmitComplaint = ({ addComplaint }) => {
     <Card className="bg-light text-dark">
       <Card.Body>
         <h3>New Complaint</h3>
+        {submitSuccess && <Alert variant="success" onClose={() => setSubmitSuccess(false)} dismissible>Complaint submitted successfully!</Alert>}
         <form onSubmit={handleSubmitComplaint}>
           <div className="form-group">
             <label>Complaint</label>
