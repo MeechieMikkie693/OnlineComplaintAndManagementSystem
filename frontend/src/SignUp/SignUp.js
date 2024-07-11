@@ -6,7 +6,8 @@ import user_icon from '../Assets/person.png';
 import email_icon from '../Assets/email.png';
 import password_icon from '../Assets/password.png';
 
-export default function SignUp() {
+export default function SignUp({
+  onLogin}) {
   const [isSignUp, setIsSignUp] = useState(true);
   const [roll, setRoll] = useState('');
   const [email, setEmail] = useState('');
@@ -36,6 +37,7 @@ export default function SignUp() {
       };
       const response = await axios.post('http://localhost:8000/api/users', newUser);
       console.log('User created:', response.data);
+      onLogin();
       // Optionally, you can redirect or show a success message
     } catch (error) {
       console.error('Error creating user:', error);
@@ -49,8 +51,17 @@ export default function SignUp() {
       const response = await axios.get(`http://localhost:8000/api/users/${email}`);
       console.log('User found:', response.data);
       // Validate password or redirect to dashboard on success
+      if(response.data){
+        console.log('Login successful');
+        onLogin();
+        //Redirect or handle successful login
+      }else{
+        console.log('Invalid password');
+        //Handle invalid password
+      }
     } catch (error) {
       console.error('Error logging in:', error);
+      alert('Invalid Credentials');
       // Handle error: Display an alert or set an error state
     }
   };
