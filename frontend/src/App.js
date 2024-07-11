@@ -2,7 +2,7 @@
 import './App.css';
 import SignUp from './SignUp/SignUp';
 import Landing from './Landing/Landing';
-import Studentdash from './Studentdash';
+import Studentdash from './componentsStudent/studentdash';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import React, { useState } from 'react';
 
