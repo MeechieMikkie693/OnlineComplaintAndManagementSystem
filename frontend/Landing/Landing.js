@@ -16,7 +16,6 @@ export default function Landing() {
           <a href="/#about">About</a>
           <a href="/#services">Services</a>
           <Link style={{color: '#31a8da'}} to='/users'>Login/SignUp</Link>
-          {/* <a href="/users">Login/SignUp</a> */}
         </nav>
       </header>
       <section id="home" className="home-section">
